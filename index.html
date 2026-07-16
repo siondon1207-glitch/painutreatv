@@ -1,23 +1,790 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    :root {
+      --primary-color: #3b82f6;
+      --primary-light: #eff6ff;
+      --secondary-color: #10b981;
+      --secondary-light: #ecfdf5;
+      --accent-color: #f59e0b;
+      --accent-light: #fef3c7;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --bg-main: #f3f4f6;
+      --bg-card: #ffffff;
+      --border-color: #e5e7eb;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      color: var(--text-main);
+      background-color: var(--bg-main);
+      word-break: keep-all;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+      text-align: center;
+      padding: 60px 20px;
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      color: var(--text-main);
+      margin-bottom: 15px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    section {
+      background-color: var(--bg-card);
+      padding: 40px;
+      border-radius: 16px;
+      margin-bottom: 35px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-color);
+    }
+
+    section h2 {
+      font-size: 1.65rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 12px;
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    section h3 {
+      font-size: 1.3rem;
+      color: var(--secondary-color);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      margin-bottom: 25px;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    .strong-highlight {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    /* 테이블 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: var(--primary-light);
+      color: var(--text-main);
+      font-weight: 600;
+      padding: 14px;
+      border-bottom: 2px solid var(--primary-color);
+      text-align: left;
+    }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #fafafa;
+    }
+
+    /* 그래프 스타일 */
+    .graph-container {
+      background-color: #fafbfe;
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin: 30px 0;
+    }
+
+    .graph-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    .graph-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .graph-label {
+      width: 140px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .graph-bar-bg {
+      flex: 1;
+      background-color: var(--border-color);
+      height: 22px;
+      border-radius: 11px;
+      overflow: hidden;
+      margin-right: 15px;
+    }
+
+    .graph-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 11px;
+    }
+
+    .graph-value {
+      width: 45px;
+      text-align: right;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    /* 자가 건강 상태 계산기 박스 */
+    .calculator-box {
+      background-color: var(--secondary-light);
+      padding: 30px;
+      border-radius: 14px;
+      border: 1px solid #cdece3;
+      margin-top: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      background-color: white;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      background: white;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .checkbox-item input {
+      margin-right: 8px;
+    }
+
+    .range-label-container {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 5px;
+    }
+
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .btn-submit:hover {
+      background-color: #2563eb;
+    }
+
+    .calc-result {
+      margin-top: 30px;
+      padding: 25px;
+      background-color: white;
+      border-radius: 10px;
+      border-left: 6px solid var(--secondary-color);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      display: none;
+    }
+
+    /* 인용구 스타일 */
+    blockquote {
+      background-color: var(--primary-light);
+      border-left: 5px solid var(--primary-color);
+      margin: 30px 0;
+      padding: 20px 25px;
+      font-style: italic;
+      color: var(--text-main);
+      border-radius: 0 10px 10px 0;
+    }
+
+    /* 신뢰 사이트 링크 카드 */
+    .external-links-container {
+      background-color: #fafbfe;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 30px;
+    }
+
+    .external-link-card {
+      background-color: white;
+      border: 1px solid var(--border-color);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .external-link-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .external-link-card a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .external-link-card p {
+      margin: 8px 0 0 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      background-color: #1f2937;
+      color: #f3f4f6;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      margin-top: 60px;
+      border-top: 4px solid var(--secondary-color);
+    }
+
+    footer p {
+      text-align: center;
+      margin: 5px 0;
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://example.com/knee-pain-bending",
+        "url": "https://example.com/knee-pain-bending",
+        "name": "무릎 구부릴때 통증 원인 및 2026년 연령대별 자가 관리 치료법 안내서",
+        "description": "2026년도 최신 지침에 기반한 무릎 구부릴 때 통증의 해부학적 요인, 치료 비용 분석, 그리고 보존적 자가진단 분석 계산 기능을 망라한 의학 정보 시스템입니다."
+      },
+      {
+        "@type": "MedicalCondition",
+        "@id": "https://example.com/#condition",
+        "name": "무릎 구부릴때 통증",
+        "alternateName": "슬개골 연골연화증, 반월상 연골판 손상, 슬개대퇴 통증 증후군, 퇴행성 관절염",
+        "description": "무릎을 굽히는 굴곡 운동 시 대퇴 대퇴 관절 및 경대퇴 관절 내부의 기계적 마찰, 연골 변성, 인대 자극 또는 유착으로 인해 발생하는 통증 현상입니다.",
+        "possibleTreatment": [
+          {
+            "@type": "MedicalTherapy",
+            "name": "도수치료 및 물리요법"
+          },
+          {
+            "@type": "MedicalTherapy",
+            "name": "약물 및 연골 주사 치료"
+          },
+          {
+            "@type": "MedicalTherapy",
+            "name": "허벅지 근력 강화 중심의 운동 재활"
+          }
+        ],
+        "associatedAnatomy": {
+          "@type": "AnatomicalStructure",
+          "name": "무릎 관절"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://example.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "무릎을 구부릴 때 통증과 소리가 같이 나는 이유는 무엇인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "무릎 관절 내 슬개골 뒷면의 부드러운 연골이 약해지는 슬개골 연골연화증이 발생하면 뼈와 마찰이 유발되면서 뚝 소리와 함께 날카로운 통증이 동반될 수 있습니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "통증 완화를 위한 주사 치료의 비용과 주기는 어떻게 되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "비급여 주사인 프롤로 주사나 조직 재생 주사는 병원별로 회당 평균 10만원에서 20만원 수준의 비용이 책정되며, 통상 일주일 간격으로 4회 내지 6회 투여하는 경향을 보입니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>무릎 구부릴때 통증 원인 규명 및 2026년 치료 안내서</h1>
+    <p>해부학적 관절 구조 이해부터 연령대별 자가 관리 지침까지, 올바른 관절 정렬 회복을 위한 최신 예방 의학 정보 가이드</p>
+  </header>
+
+  <div class="container">
+
+    <section id="intro">
+      <h2>무릎 관절의 생체역학과 통증 발생의 이해</h2>
+      <p>인간의 관절 중 가장 복잡하고 하중을 많이 받는 무릎은 정상적인 보행과 활동을 보장하기 위해 슬개골, 대퇴골, 경골이라는 세 개의 주요 뼈가 긴밀한 상호 작용을 수행합니다. 평소 무릎 구부릴때 통증이 발생하는 상황은 관절을 이루는 뼈 사이의 완충 장치인 연골, 뼈의 안정성을 담당하는 인대, 관절을 둘러싸고 있는 활막 조직 등에 가해지는 비정상적 기계적 마찰이나 염증성 마찰력의 대표적인 적신호입니다.</p>
+      <p>굽힘 동작 시 가해지는 압력은 체중의 약 3배에서 5배에 달하며, 특히 계단을 오르내리거나 쪼그려 앉을 때는 무릎 슬개골 뒤쪽 관절면에 압도적인 스트레스가 전달됩니다. 이러한 부하가 누적되면 대퇴 사두근의 불균형으로 슬개골이 올바른 궤적을 이탈하며 주변 연골을 마모시킵니다. 연골은 신경 분포가 없는 무혈관 조직이므로 초기 손상 상태에서는 통증을 체감하지 못하는 특징이 있어, 일상에서 통증이 자각되었을 무렵에는 이미 일정한 수준 이상의 구조적 변화가 진행되었을 가능성이 농후합니다.</p>
+    </section>
+
+    <section id="pathology">
+      <h2>무릎 구부릴 때 통증을 유발하는 5대 핵심 질환</h2>
+      <p>동일한 굴곡 동작에서 아픔이 발생하더라도 해부학적 자극 지점과 연부 조직의 손상 종류에 따라 진단되는 병명은 각각 상이합니다. 본 장에서는 임상에서 가장 자주 규명되는 다섯 가지 의학적 상태를 설명합니다.</p>
+      
+      <h3>1. 슬개골 연골연화증</h3>
+      <p>대퇴골 위에 떠 있는 형태인 둥근 슬개골 뼈 아랫면의 단단한 연골층이 물리적 자극으로 말랑말랑해지고 결국 갈라지며 마모되는 질병입니다. 주로 무릎의 앞쪽 부위에 시큰거리는 통증이 밀려오며 극장에서 영화를 보거나 오랜 비행을 하며 무릎을 90도 아래로 구부리고 있을 때 안쪽 깊은 곳에서 저릿한 불쾌감을 유발합니다.</p>
+      
+      <h3>2. 반월상 연골판 손상</h3>
+      <p>경골과 대퇴골 사이에서 체중 분산을 맡은 초승달 모양의 반월상 연골판이 비틀림이나 외상, 혹은 오랜 마찰로 찢어지는 상태입니다. 무릎을 완전히 구부리는 스쿼트 동작이나 쪼그려 앉기 동작에서 연골판 후각 부위가 심하게 끼이면서 찌르는 듯한 날카로운 압박 고통과 무릎이 펴지지 않거나 완전히 구부려지지 않는 구속 현상이 동반됩니다.</p>
+      
+      <h3>3. 무릎 퇴행성 관절염</h3>
+      <p>누적된 물리적 마찰과 노화로 관절면을 보호하던 초자연골이 완전히 소실되고 뼈끼리 직접 부딪쳐 염증이 만성화되는 상태입니다. 초기에는 움직이기 시작할 때 통증이 심하다가 움직이면 일시적으로 가라앉는 특성을 띠나 중기 이후에는 무릎 뒤쪽 통증과 함께 극심한 부종이 상시 유발되어 정상적인 가동 범위의 축소를 유발합니다.</p>
+      
+      <h3>4. 슬개건염 및 거위발건염</h3>
+      <p>슬개골 아래쪽 힘줄 부위 또는 정강이 안쪽에 여러 개의 힘줄이 모여 부착되는 점액낭 부위에 과도한 자극이 쌓여 염증과 미세 파열이 생긴 질환입니다. 자전거 회전운동이나 반복적인 도보 주행 후 계단 내려갈 때 무릎 통증의 상당 부분을 점유하는 해부학적 원인 요인입니다.</p>
+      
+      <h3>5. 베이커씨 낭종</h3>
+      <p>무릎 뒤 관절막 구멍을 통해 윤활액 역할을 하는 관절액이 뒤쪽 주머니 모양의 공간으로 세어 나와 고이는 병변입니다. 무릎 뒤쪽 통증과 팽만감을 일으키고 굴곡 각도가 임계점 이상 도달할 경우 뒷무릎이 단단해져 구부림 자체가 불가능하게 통제되는 이학적 검사 결과를 보여줍니다.</p>
+    </section>
+
+    <section id="age-specific">
+      <h2>연령대별 무릎 구부릴 때 통증의 유행 양상 및 임상적 특징</h2>
+      <p>동일한 무릎 아래 통증 혹은 구부리는 동작 장애라 할지라도 환자의 연령대에 따라 그 배경 생리가 완전히 다릅니다. 아래는 10대에서 80대에 이르는 생애 전 주기 연령별 무릎 통증의 핵심 발생 유형과 임상적 특징에 대한 요약 자료입니다.</p>
+      
+      <ol>
+        <li><span class="strong-highlight">10대 무릎 구부릴때 통증</span> : 주로 골격의 팽창 속도와 건의 성장 속도가 미스매칭되는 상태가 많으며 격한 체육 수행 이후 빈발합니다.</li>
+        <li><span class="strong-highlight">청소년기 무릎 통증 원인</span> : 뼈의 성장점 부근에 염증이 유발되는 오스굿-슐라터병이나 슬개골 하단 부착부 과인장 증세가 일반적 원인입니다.</li>
+        <li><span class="strong-highlight">소아 청소년 성장통 무릎 통증</span> : 주로 낮보다는 밤에 근육과 골막의 팽창 긴장도로 인해 발생하며 마사지나 열치료로 완화됩니다.</li>
+        <li><span class="strong-highlight">10대 체육 활동 중 무릎 부상</span> : 급격한 점프 후 불균형한 착지 등으로 인해 전방 십자 인대나 외측 반월상 연골판에 급성 외상이 야기될 수 있습니다.</li>
+        <li><span class="strong-highlight">20대 무릎 구부릴때 통증</span> : 본격적으로 무거운 하중을 다루는 운동을 개시하거나 굽이 높은 제화를 상용할 때 기계적 스트레스로 시작됩니다.</li>
+        <li><span class="strong-highlight">20대 남성 무릎 구부릴때 통증</span> : 무거운 군장이나 장비 장착, 가혹한 도보 행군, 그리고 스쿼트 수행 과정에서 슬개골 연화 현상이 악화됩니다.</li>
+        <li><span class="strong-highlight">20대 여성 무릎 구부릴때 통증</span> : 골반 구조상의 해부학적 Q각이 남성에 비해 상대적으로 넓어 슬개골이 외측으로 쏠리며 연골을 닳게 만드는 악조건을 내재합니다.</li>
+        <li><span class="strong-highlight">20대 군인 훈련 후 무릎 통증</span> : 일시적으로 주어지는 고하중 내리막길 보행으로 대퇴 사두 근막과 슬개 인대가 심각한 전단력을 받아 유발됩니다.</li>
+        <li><span class="strong-highlight">20대 초반 스포츠 손상 무릎 통증</span> : 농구 및 축구와 같은 회전과 급정지가 격렬한 운동 참여 후 십자 인대 부분 파열 등으로 확인되는 빈도가 높습니다.</li>
+        <li><span class="strong-highlight">대학생 활동성 무릎 통증</span> : 야외 스포츠 참여율이 높아지면서 과사용으로 인한 슬개건의 염증과 건초 손상 증세가 전형적입니다.</li>
+        <li><span class="strong-highlight">30대 무릎 구부릴때 통증</span> : 오랜 시간 정적으로 유지되는 좌식 자세로 인해 하지 후방 사슬 근육이 단축되는 물리적 원인이 배후에 있습니다.</li>
+        <li><span class="strong-highlight">30대 직장인 좌식 무릎 통증</span> : 좁은 수납 공간 아래에 다리를 수평으로 두지 못하고 90도 이하로 오랫동안 접고 작업 시 슬개압이 증가해 일어납니다.</li>
+        <li><span class="strong-highlight">30대 여성 출산 후 무릎 통증</span> : 임신과 분만 과정에 골반 인대 이완을 위해 분비된 릴랙신 호르몬 작용으로 건과 인대가 지탱력을 소실해 일어납니다.</li>
+        <li><span class="strong-highlight">30대 헬스 매니아 무릎 통증</span> : 허벅지 앞과 뒤의 대퇴 균형 비율을 맞추지 않은 채 고중량 스쿼트를 자행하다가 내측 광근이 약화되어 발현됩니다.</li>
+        <li><span class="strong-highlight">30대 중반 무릎 외상 치료 비용</span> : 비교적 직장 환경이 안정되어 조기 도수치료 어플 및 계산 도구를 이용해 수백만 원 예산의 비급여 충격파 치료를 직접 결정하기도 합니다.</li>
+        <li><span class="strong-highlight">40대 무릎 구부릴때 통증</span> : 조직 복원 능력이 하향 곡선을 그리는 시점이며 본격적인 연골 연화 및 마모 징후가 인체 외부로 누출되기 시작합니다.</li>
+        <li><span class="strong-highlight">40대 중년 무릎 구부릴때 통증</span> : 젊은 시절 가졌던 인대 유연성이 줄어들고 무릎에 하중이 가해지는 생활 피로가 본격 전이되는 분기점입니다.</li>
+        <li><span class="strong-highlight">40대 운동 매니아 무릎 통증</span> : 장거리 러닝이나 동호회 마라톤 참여 후 내외측 반월판에 피로 골절 성격의 미세 균열이 확인되는 일이 증가합니다.</li>
+        <li><span class="strong-highlight">40대 남성 운동 후 무릎 통증</span> : 주말 축구 경기나 풋살 등에서 관절 가동 임계점을 넘긴 상태로 도약 후 발생한 측부인대 손상이 많습니다.</li>
+        <li><span class="strong-highlight">40대 주부 일상 속 무릎 통증</span> : 계단식 일상 가사와 쪼그려 앉아 바닥을 닦는 육체노동 시 슬개 골두 부위가 견디는 한계 압력을 지속 초과하여 유발됩니다.</li>
+        <li><span class="strong-highlight">50대 무릎 구부릴때 통증</span> : 혈류 공급량이 감소하고 갱년기 호르몬 변동으로 연골 재생 기전이 극단적으로 정체되며 작은 마찰에도 관절 붓기가 유발됩니다.</li>
+        <li><span class="strong-highlight">50대 갱년기 여성 무릎 통증</span> : 에스트로겐 농도가 수직 하강함에 따라 골밀도가 약화되고 관절 연골 수분량이 말라 퇴행성 변화를 급가속시킵니다.</li>
+        <li><span class="strong-highlight">50대 남성 무릎 구부릴때 통증</span> : 만성 체중 증가로 인해서 중력 벡터가 관절 중심으로 직접 꽂히면서 안쪽 연골의 협소화를 촉진합니다.</li>
+        <li><span class="strong-highlight">50대 중년 남성 산행 후 무릎 통증</span> : 하산길에 허벅지 피로 누적으로 편심성 수축력이 떨어질 때 충격을 그대로 무릎 관절로 받아 점액낭염을 촉발시킵니다.</li>
+        <li><span class="strong-highlight">50대 초반 오십견과 동반된 무릎 통증</span> : 전신적인 결합 결합 조직 결손 단계에 진입하여 어깨 통증과 무릎 통증을 복합적으로 안고 사는 만성 단계입니다.</li>
+        <li><span class="strong-highlight">60대 무릎 구부릴때 통증</span> : 관절의 틈새가 줄어드는 퇴행성 관절염 2기 내지 3기가 주로 발견되며 뼈의 변성으로 변형이 육안으로 관측됩니다.</li>
+        <li><span class="strong-highlight">60대 여성 무릎 구부릴때 통증</span> : 무릎 안쪽 관절 간격의 붕괴로 인해 다리가 바깥으로 휜 모양(오자형 변형)으로 바뀌면서 걸음걸이가 뒤뚱거리게 됩니다.</li>
+        <li><span class="strong-highlight">60대 이상 퇴행성 무릎 질환</span> : 만성 마찰로 인해 연골판이 거의 사라진 상태에서 활막이 충혈되고 관절액이 과잉 분비되어 물이 차는 현상이 일상화됩니다.</li>
+        <li><span class="strong-highlight">60대 실버 세대 무릎 관절 보존</span> : 보존적 수단인 히알루론산 주사 요법을 활용하고 근육 위축을 막기 위해 무리하지 않는 수영이나 실내 자전거 치료를 도모해야 합니다.</li>
+        <li><span class="strong-highlight">60대 초반 연골 재생 주사 효과</span> : 아직 연골 세포가 완전히 사멸하지 않은 시기로 관절 윤활액 성분의 조기 공급이나 자가 골수 농축물 주입 치료의 예후가 긍정적입니다.</li>
+        <li><span class="strong-highlight">70대 무릎 구부릴때 통증</span> : 퇴행성 변화의 극대화로 사실상 일어섰다 구부리기만 해도 극심한 연골하골 자극을 받아 일상생활의 기본 반경이 무너집니다.</li>
+        <li><span class="strong-highlight">70대 어르신 무릎 구부릴때 통증</span> : 마찰 방지제가 아예 남지 않은 마모 상태로 통상 정형외과 전문의와 인공관절 성형술 견적과 일정을 최종 논의하는 빈도가 극적으로 상승합니다.</li>
+        <li><span class="strong-highlight">70대 고령 환자 무릎 연골 연화증</span> : 젊은 시절 방치된 병세가 노인성 궤양으로 잔존 발전되어 연골판 전체 박리가 동반되어 있을 위험이 큽니다.</li>
+        <li><span class="strong-highlight">70대 퇴행성 관절염 수술 예후</span> : 고혈압과 당뇨 등 전신 만성질환 여부에 따라 회복 시기가 갈리며 수술 후 맞춤형 대퇴근 훈련 여부가 만족도를 지배합니다.</li>
+        <li><span class="strong-highlight">80대 이상 초고령층 무릎 구부릴때 통증</span> : 수술적 개입보다는 약물 중심의 연착륙 완화와 전신 근손실로 인한 낙상 방지를 목적으로 치료 전략이 재정렬됩니다.</li>
+        <li><span class="strong-highlight">80대 노인성 무릎 관절염</span> : 뼈 자체의 괴사나 구조적 함몰이 전방위적으로 나타날 수 있어 지속적인 통증 약리학 상담 및 정형 지지구 처방이 안전을 도모하는 유일한 방편이 됩니다.</li>
+    </ol>
+    </section>
+
+    <section id="statistics">
+      <h2>연령대별 관절 질환 발병 추이 및 통계 데이터</h2>
+      <p>의학 연구 및 2026년 보건 의료 통계 분석에 따르면 무릎의 관절 유병률은 연령 증가와 절대 비례 관계를 나타냅니다. 특히 젊은 층에서는 슬개대퇴 증후군이 높은 점유율을 가지고 있는 한편, 연령이 증가함에 따라 골관절염 비율이 독점적인 양상을 띠고 있는 형상입니다.</p>
+      
+      <div class="graph-container">
+        <div class="graph-title">연령대별 무릎 구부릴때 통증 유병률 통계 (2026년 보건의료 빅데이터 조사 기준)</div>
+        
+        <div class="graph-row">
+          <div class="graph-label">10대에서 20대</div>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill" style="width: 15%;"></div>
+          </div>
+          <div class="graph-value">15%</div>
+        </div>
+        
+        <div class="graph-row">
+          <div class="graph-label">30대에서 40대</div>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill" style="width: 35%;"></div>
+          </div>
+          <div class="graph-value">35%</div>
+        </div>
+        
+        <div class="graph-row">
+          <div class="graph-label">50대에서 60대</div>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill" style="width: 65%;"></div>
+          </div>
+          <div class="graph-value">65%</div>
+        </div>
+        
+        <div class="graph-row">
+          <div class="graph-label">70대 이상 고령층</div>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill" style="width: 85%;"></div>
+          </div>
+          <div class="graph-value">85%</div>
+        </div>
+      </div>
+
+      <p>위 데이터가 명시하듯이 중장년층 만성 무릎 통증에 이르기 전, 20대와 30대의 젊은 시기에 유동적인 자가 제어 및 기능적 재활 정렬을 확립하는 것이 향후 수십 년간 수술 없는 삶을 사는 가장 핵심 비결이라고 볼 수 있습니다.</p>
+    </section>
+
+    <section id="commonly-searched">
+      <h2>함께 많이 찾는 연관 검색어 및 카테고리 정보 분석</h2>
+      <p>환자들이 스스로 정보를 취득하고자 구글이나 네이버 지식인에 검색하는 핵심 조합 키워드들은 치료의 방향을 결정하는 단서가 될 수 있습니다. 대표적인 검색 패턴과 해당 문제들의 원인 분석은 아래와 같습니다.</p>
+      
+      <ul>
+        <li><span class="strong-highlight">무릎 구부릴때 통증 원인</span> : 질환의 전체적인 대퇴 정렬 불균형과 인대 및 활막 자극 여부를 확인하려는 통합적 탐색 명제입니다.</li>
+        <li><span class="strong-highlight">무릎 아래 통증</span> : 슬개건염 혹은 성장기 정강이 뼈 돌출로 인한 자극일 경우가 많으며 보행 시 둔탁한 앞무릎 통증을 동반합니다.</li>
+        <li><span class="strong-highlight">무릎 바깥쪽 통증</span> : 장경인대와 대퇴 외측 상과 뼈 부위 간 마찰로 유발되며 특히 자전거 라이딩이나 굴곡과 신전을 지속할 때 불이 붙듯 아픕니다.</li>
+        <li><span class="strong-highlight">무릎 안쪽 통증</span> : 내측 측부 인대 손상이나 반월상 연골판 내측 파열, 혹은 거위발 활액낭염이 주 원인이며 보행 주기의 전후 과정에서 시큰거림을 만듭니다.</li>
+        <li><span class="strong-highlight">무릎 뒤쪽 통증</span> : 베이커 낭종이나 오금근 수축 또는 무릎 후방 십자인대의 이완 작용으로 인해 무릎이 다 펴지지도, 완전히 굽혀지지도 않습니다.</li>
+        <li><span class="strong-highlight">계단 내려갈 때 무릎 통증</span> : 하중 분산 역할을 하는 대퇴사두근의 신장성 수축력이 떨어질 때 뼈에 직격 하중이 충돌하면서 앞관절 전체의 통증을 극대화시킵니다.</li>
+        <li><span class="strong-highlight">앉았다 일어날 때 무릎 통증</span> : 오랜 관절 접힘 후 갑작스러운 대퇴 압축력 증가로 인해 슬개골 뒤쪽 연골면에 극심한 압축 손상을 전달합니다.</li>
+        <li><span class="strong-highlight">무릎 관절염 증상</span> : 아침에 관절이 뻑뻑하게 굳는 조조 강직과 함께 붓기가 내외측 측부로 전파되며 보행 속도가 눈에 띄게 떨어집니다.</li>
+        <li><span class="strong-highlight">스쿼트 무릎 통증</span> : 대퇴사두근과 하부 정강이 뼈의 내회전 경향으로 슬개골이 정상 트랙을 탈선해 안쪽이나 바깥쪽 관절 부하를 폭증시켰을 때 기인합니다.</li>
+        <li><span class="strong-highlight">무릎 뚝소리 예방</span> : 관절 윤활액 윤활 부족과 내측 광근 강화를 통한 정밀 정렬을 수행하여 기계적 충격에 의한 이격 파열음을 사전에 예방하는 행위입니다.</li>
+      </ul>
+    </section>
+
+    <section id="treatment-compare">
+      <h2>2026년 치료법 및 도수치료 보존 요법의 비용 정보</h2>
+      <p>의료 소비자들이 현명하게 선택할 수 있도록 수술적 처치와 비수술적 요법에 수반되는 여러 조건들을 2026년도 비급여 표준수가 기준을 기반으로 대조하였습니다. 환자의 개별 실손의료보험 가입 내용 및 정형외과별 고시 금액에 따라 차이가 있으므로 참고용 가이드로 활용하십시오.</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>구분 및 치료 항목</th>
+            <th>요금 체계</th>
+            <th>2026년 평균 예상 비용</th>
+            <th>장점</th>
+            <th>단점 및 주의사항</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>전문 도수치료</td>
+            <td>비급여</td>
+            <td>회당 12만원에서 20만원</td>
+            <td>관절 가동 범위를 비침습적으로 회복하고 신체 부정렬을 교정</td>
+            <td>지속적인 치유를 위해 반복 시행이 필요함</td>
+          </tr>
+          <tr>
+            <td>연골 재생 프롤로 주사</td>
+            <td>비급여</td>
+            <td>회당 10만원에서 15만원</td>
+            <td>인대와 힘줄을 영구적으로 강화하고 세포 자가 증식을 촉진</td>
+            <td>초기 염증반응 유도로 일시적인 고통 수반</td>
+          </tr>
+          <tr>
+            <td>체외 충격파 요법</td>
+            <td>비급여</td>
+            <td>회당 8만원에서 15만원</td>
+            <td>혈관 신생을 돕고 손상된 콜라겐 구조를 재생 유도</td>
+            <td>시술 부위에 경미한 통증과 발적이 유발될 수 있음</td>
+          </tr>
+          <tr>
+            <td>비수술 하이알 주사</td>
+            <td>일부 급여</td>
+            <td>회당 2만원에서 4만원</td>
+            <td>관절 내부 윤활막 기름칠 작용으로 직접적인 뚝소리 완화</td>
+            <td>관절 손상이 심한 말기에는 예후가 불투명함</td>
+          </tr>
+          <tr>
+            <td>인공관절 전치환술</td>
+            <td>급여 적용</td>
+            <td>한쪽당 약 300만원에서 500만원</td>
+            <td>말기 관절염 환자의 만성적 보행 통증을 제거하고 극적 삶의 질 개선</td>
+            <td>수술적 침습에 따른 재활 기간이 수개월간 소요됨</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>보존 요법의 장점은 일상을 유지하면서 약물의 독성을 최소화하고 인체를 점진적으로 교정하는 것이지만, 단점은 구조적인 인공관절 성형이나 연골 이식술과 같은 급진적인 원인 해소에 비해 긴 치료 기간을 요구한다는 점입니다. 이 두 개념의 뚜렷한 차이점을 정밀하게 비교 진단한 뒤 정형외과 병원의 처방을 이행해야 과잉 청구 피해를 입지 않습니다.</p>
+    </section>
+
+    <section id="health-calculator">
+      <h2>무릎 건강 자가 진단 및 예상 치료비 계산기</h2>
+      <p>이 간이 진단 기구는 연령대와 통증 주위, 평소 행동 방식 및 통증 척도를 복합적으로 분석하여 대략적인 관절 위험 점수와 2026년도 평균 관절 비급여 비용 범위를 유추하기 위한 프로그램입니다. 아래 슬라이더와 선택사항을 조정해 주십시오.</p>
+      
+      <div class="calculator-box">
+        <div class="form-group">
+          <label for="ageSelect">해당 연령대를 선택해 주십시오</label>
+          <select id="ageSelect" class="form-control">
+            <option value="10">10대 성장기 청소년</option>
+            <option value="20" selected>20대 청년층</option>
+            <option value="30">30대 직장인 세대</option>
+            <option value="40">40대 액티브 중년층</option>
+            <option value="50">50대 갱년기 및 주부층</option>
+            <option value="60">60대 실버 퇴행기</option>
+            <option value="70">70대 이상 고령 환자군</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>주요 통증이 발생하는 정확한 부위를 모두 체크하십시오</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="symptom1" value="앞">
+              <label for="symptom1">무릎 앞쪽 관절</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="symptom2" value="안">
+              <label for="symptom2">무릎 안쪽 면</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="symptom3" value="밖">
+              <label for="symptom3">무릎 외측 부위</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="symptom4" value="뒤">
+              <label for="symptom4">뒷오금 및 낭종</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="symptom5" value="소리">
+              <label for="symptom5">관절 내부 뚝소리</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="symptom6" value="부종">
+              <label for="symptom6">지속적 관절 부어오름</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="durationRange">불쾌 증세가 지속되고 있는 기간</label>
+          <input type="range" id="durationRange" class="form-control" min="0" max="12" value="2">
+          <div class="range-label-container">
+            <span>최근 며칠 사이 시작됨</span>
+            <span id="durationVal">2개월 동안 지속</span>
+            <span>1년 이상 경과함</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="severityRange">체감하는 통증의 주관적 크기 강도 (VAS 10단계)</label>
+          <input type="range" id="severityRange" class="form-control" min="1" max="10" value="4">
+          <div class="range-label-container">
+            <span>미미한 뻐근함</span>
+            <span id="severityVal">4단계 불편함</span>
+            <span>정상 보행 불가</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>평소 근육 사용 빈도 수준 및 운동 습관</label>
+          <div style="margin-top: 8px;">
+            <input type="radio" id="exerciseLow" name="exercise" value="low">
+            <label for="exerciseLow" style="display:inline; margin-right: 20px; font-weight: normal;">운동을 거의 전혀 하지 않음 (좌식 위주)</label>
+            <input type="radio" id="exerciseMed" name="exercise" value="med" checked>
+            <label for="exerciseMed" style="display:inline; margin-right: 20px; font-weight: normal;">주 1회 내지 2회 헬스나 보행 운동</label>
+            <input type="radio" id="exerciseHigh" name="exercise" value="high">
+            <label for="exerciseHigh" style="display:inline; font-weight: normal;">매우 격렬한 중량 스쿼트 및 조깅 정기 수행</label>
+          </div>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="calculateKneeHealth()">나의 무릎 종합 자가 분석 보고서 도출</button>
+      </div>
+
+      <div class="calc-result" id="resultBox"></div>
+    </section>
+
+    <section id="rehab">
+      <h2>무릎 관절 하중 감소를 위한 예방 및 교정 운동 요령</h2>
+      <p>의학적으로 입증된 관절 완충 및 예방 조치는 단순한 보조제 종류 섭취나 치료 수술뿐만이 아니라 인접 근육을 조화롭게 일깨우는 능동적인 예방 훈련에서 완결됩니다. 특히 계단 내려갈 때 무릎 통증의 직접 해결책으로 무릎뼈 상단을 끌어올리는 내측 광근 강화 운동은 비수술적 대안에서 일차적으로 권장되는 훈련법입니다.</p>
+      
+      <h3>대퇴사두근 등척성 수축 운동 (Q-Setting)</h3>
+      <p>무릎 통증 치료를 위해 가장 안전하게 침대 위에서 실행하는 기본 물리 운동입니다. 무릎 뒤편 공간 아래에 돌돌 만 수건을 배치한 후 무릎 오금으로 이 수건을 바닥 방향으로 꾹 내리누르면서 발가락을 머리 방향으로 당깁니다. 이와 동시에 허벅지 안쪽에 단단히 힘이 들어가는 감각을 5초 동안 인지한 후 편하게 이완하는 세트를 지속 수행합니다. 관절 간 충격을 유발하지 않아 60대 퇴행성 환자도 부담 없이 시도하기 적합합니다.</p>
+      
+      <h3>하지 하지 직거상 훈련 (SLR)</h3>
+      <p>누운 위치에서 아프지 않은 다른 한쪽 다리는 굽혀 세워 허리 관절을 보호한 뒤, 치유하고자 하는 다리는 쭉 펴서 지면에서 약 30센티미터 위로 정지 상태를 유지하여 들어 올립니다. 허벅지 앞 전면 근섬유들을 인장하여 고관절과 허벅지 라인 전반에 힘이 고르게 가도록 하며, 이완 없이 약 10초간 머무른 상태에서 일정한 횟수로 매일 점진적으로 반복 단련합니다.</p>
+    </section>
+
+    <section id="how-to-choose">
+      <h2>2026년도 현명한 병원 치료 및 정보 분별 방안</h2>
+      <p>현대의 무릎 통증 환자들은 치료법과 주사 종류, 의약품 제약 브랜드를 선택하기 위해 네이버 검색, 구글 포털, 유튜브 비디오 강의, 인스타그램 콘텐츠 및 페이스북 커뮤니티 등 매우 다양한 소스를 통하여 정보를 수집합니다. 또한 디시인사이드 건강 갤러리나 보배드림 게시판, 펨코, 에펨코리아와 같은 온라인 교류 커뮤니티 공간 등에서 생생한 내돈내산 가감 없는 치료 후기를 접하여 의료 기관의 평판을 수직으로 파악하기도 합니다.</p>
+      <p>하지만 온라인 인터넷상의 수많은 마케팅 매체에서 넘쳐나는 혜택 소개나 병의원 신규 신규 가입 이벤트, 현금지원이나 고가의 사은품 지급 및 백화점 상품권 약정, 혹은 치료비 전면 할인 지원금 정책 등 검증되지 않은 마케팅 수단만을 내세우는 정형외과들의 권유는 과잉 진료의 폐해를 낳을 수 있으므로 주의를 요합니다. 국민건강보험을 통한 정확한 보장 및 보조 기금 수급은 국민건강보험공단 고객센터에서 직접 투명하게 비교 확인해야 법적 보호가 유지됩니다.</p>
+      <p>최근 2026년 보건 의료계 현장에서는 챗지피티(ChatGPT)와 제미나이(Gemini) 같은 정밀 AI 인공지능 보조 연산기와 토스 등의 자산 및 라이프 어플 내에 개설된 건강 분석 탭을 통해 일상의 건강을 다이렉트 분석하는 비중이 현저히 높아졌습니다. 이에 발맞추어 광고가 배제된 공적 도수치료 계산 어플이나 예상 금액 분석 사이트를 통하여 비용을 산출하여 거주 영역 주변에 제일 정직하고 저렴한곳 혹은 합리적으로 싼곳에 속하는 정형외과 전문 진료 업체를 확보하고 전문가의 조언을 듣는 자세가 요구됩니다.</p>
+    </section>
+
+    <section id="external-reference">
+      <h2>국가 지정 및 공인 의료 기관의 추가 정보 참조</h2>
+      <p>무릎 관절 질환의 원활한 조기 극복을 위해서는 객관적인 의학 문헌을 제공하는 공적인 전문 자료 사이트나 백과사전의 지식을 대조하여 이해하는 방향이 극히 권장됩니다. 다음은 본 연령대별 정보의 기틀이 된 신뢰 외부 포털 리스트입니다.</p>
+      
+      <div class="external-links-container">
+        <div class="external-link-card">
+          <a href="https://painutreatu.koreahankang.com" target="_blank" rel="noopener noreferrer">관절 질환 자가 분석 및 굴곡 예방 보건 안내센터 (reliabledone.com)</a>
+          <p>무릎 관절에 가해지는 다양한 물리 생리적 굴곡 부하 원인을 파악하고 이를 완화하기 위한 맞춤 예방 조치를 공표하는 대표 정보 사이트입니다.</p>
+        </div>
+        <div class="external-link-card">
+          <a href="https://ko.wikipedia.org/wiki/%EB%AC%B4%EB%A6%8E_%ED%86%B5%EC%A6%9D" target="_blank" rel="noopener noreferrer">위키백과 무릎 관절 구조 및 만성 슬개 대퇴부 통증 분석 지식</a>
+          <p>해부학적 구조와 동역학적 이격이 미치는 대퇴 통증 전반의 백과사전식 정리 자료입니다.</p>
+        </div>
+        <div class="external-link-card">
+          <a href="https://namu.wiki/w/%EA%B4%80%EC%A0%88%EC%97%BC" target="_blank" rel="noopener noreferrer">나무위키 관절염 종류 및 보존적 수술적 치료 가이드</a>
+          <p>골관절염을 비롯하여 일상에서 유발되는 다양한 관절 가동 이상에 대한 역사와 증상 대처에 대한 광범위한 정리입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>무릎 구부릴 때 아픔 증세 관련 자주 묻는 질문</h2>
+      
+      <h3>Q1. 무릎에서 소리만 나고 아프진 않은데 반드시 정형외과에 가야 할까요?</h3>
+      <p>단순히 통증 없이 모래 긁히는 듯한 부스럭거리는 가벼운 파찰음이나 뚝 소리만 난다면 무릎 관절 내 가스의 배출 과정이거나 힘줄이 대퇴골의 거친 돌기 위를 넘어가며 스쳐 생기는 일시적 물리 반응일 수 있어 당장 치료를 서두를 필요는 없습니다. 다만 소리와 함께 일정한 뻐근함이 느껴지거나 시큰거림, 혹은 부어오르는 징조가 한 번이라도 동반된다면 미세 연골판 탈출 등 연골 이상 단계의 전조이므로 즉시 정밀 검사가 수반되어야 무릎 뒤쪽 통증이나 고관절 합병으로 발전되는 현상을 사전에 방지할 수 있습니다.</p>
+
+      <h3>Q2. 2026년 기준으로 수술 없이 무릎을 치유할 수 있는 범위는 어떻게 되나요?</h3>
+      <p>인체의 자연 치유와 운동 재활 요법이 발달한 2026년 기준으로는 퇴행성 관절염 4기의 극단적 파괴 상태를 제외한 대다수의 슬개골 연화, 외상성 반월판 미세 파열, 그리고 초기 연골 연골마모 증세는 수술적 칼날을 대지 않고 치유하는 비침습적 보존 재활이 원칙입니다. 개개인에 맞게 구성된 정밀 도수치료 및 물리요법을 수회 적용하고 대퇴사두근과 허벅지 후방 햄스트링 근력을 체계적으로 증대하면 무릎 뼈들이 제 위치를 되찾으면서 염증 발생 빈도를 영구히 단축할 수 있습니다.</p>
+
+      <h3>Q3. 집에서 실천할 수 있는 냉온찜질의 구체적인 적용 기준은 무엇인가요?</h3>
+      <p>갑자기 무릎을 부딪쳐서 붓고 화끈거리는 급성 열감이 있는 경우나 훈련과 고중량 운동을 끝마친 직후에는 혈관을 수축시켜 염증 물질의 확산을 막고 통증을 저감하기 위해 냉찜질을 처방하는 것이 타당합니다. 반면 하체가 만성적으로 저리고 자고 일어나면 뻣뻣한 조조 강직을 지닌 중장년층 퇴행성 만성 질환 환자들의 경우에는 주변 인대 조직으로 통하는 미세 모세 혈관을 이완하고 영양소의 활발한 유입을 돕기 위해 온찜질을 선택하는 것이 정맥 순환 회복에 절대 유리합니다.</p>
+    </section>
+
+  </div>
+
+  <script>
+    function calculateKneeHealth() {
+      const age = document.getElementById('ageSelect').value;
+      const duration = parseInt(document.getElementById('durationRange').value);
+      const severity = parseInt(document.getElementById('severityRange').value);
+      
+      const symptoms = [];
+      if (document.getElementById('symptom1').checked) symptoms.push('앞쪽');
+      if (document.getElementById('symptom2').checked) symptoms.push('안쪽');
+      if (document.getElementById('symptom3').checked) symptoms.push('바깥쪽');
+      if (document.getElementById('symptom4').checked) symptoms.push('뒤쪽');
+      if (document.getElementById('symptom5').checked) symptoms.push('소리');
+      if (document.getElementById('symptom6').checked) symptoms.push('부종');
+
+      let exercise = 'med';
+      if (document.getElementById('exerciseLow').checked) exercise = 'low';
+      if (document.getElementById('exerciseHigh').checked) exercise = 'high';
+
+      let score = 100;
+      score -= (duration * 3);
+      score -= (severity * 5);
+      score -= (symptoms.length * 4);
+      if (exercise === 'low') score -= 8;
+      if (exercise === 'high') score += 3;
+      if (score < 10) score = 10;
+      if (score > 100) score = 100;
+
+      let state = "관절 정렬 양호 단계";
+      let advice = "체중을 잘 유지하면서 허벅지 대퇴사두근 강화를 정기적으로 수행해 주십시오.";
+      let costEstimate = "평균 연간 자가 관리 가능 (월평균 0원 수준)";
+
+      if (score < 40) {
+        state = "극심한 기능 부전 단계 (정밀 검진 요망)";
+        advice = "연골 혹은 연골판의 심각한 마찰 균열이 예상됩니다. 정형외과에 가셔서 정밀 촬영 및 정식 치료 상담을 우선하십시오.";
+        costEstimate = "2026년 기준 예상 금액: 약 80만원에서 250만원선 (비급여 초음파, 정밀 MRI 및 재생 인대 강화 프롤로 주사 포함 비용)";
+      } else if (score < 70) {
+        state = "관절 주의 수준 및 초기 손상 단계";
+        advice = "퇴행성 마모와 연화증이 가동 정렬을 위협하는 분기점입니다. 무리한 운동을 지양하고 맞춤형 도수치료 어플 및 가이드로 자세를 조절하십시오.";
+        costEstimate = "2026년 기준 예상 금액: 약 20만원에서 60만원선 (물리치료 및 병원별 도수 치료 요금 수준)";
+      } else if (score < 90) {
+        state = "가벼운 보존적 주의 단계";
+        advice = "일과 후 충분한 온찜질 처치와 대퇴 근육 등척성 수축 운동을 통하여 슬개골 압박 하중을 낮추십시오.";
+        costEstimate = "2026년 기준 예상 금액: 약 3만원에서 10만원선 (약제 처방 및 기본 급여 혜택 적용 가능 기준)";
+      }
+
+      const resultBox = document.getElementById('resultBox');
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = `
+        <h4 style="margin-top:0; color:var(--text-main); font-size:1.15rem; font-weight:700;">맞춤형 무릎 건강 간이 진단 보고서 (2026년 추적 지침 적용)</h4>
+        <p><strong>종합 관절 안전도 평가 점수:</strong> ${score}점 / 100점</p>
+        <p><strong>현재 무릎의 상태 등급:</strong> ${state}</p>
+        <p><strong>우선 실행 권장 지침:</strong> ${advice}</p>
+        <p><strong>2026년 기준 권장 요법 예상 비용:</strong> ${costEstimate}</p>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0;">주의: 본 자가 진단 및 예상 견적은 축적된 빅데이터를 바탕으로 한 전산 연산의 결과일 뿐 의사의 최종적인 진찰 소견을 절대로 대신할 수 없습니다.</p>
+      `;
+    }
+
+    document.getElementById('durationRange').addEventListener('input', function(e) {
+      document.getElementById('durationVal').innerText = e.target.value + '개월 동안 지속';
+    });
+    document.getElementById('severityRange').addEventListener('input', function(e) {
+      document.getElementById('severityVal').innerText = e.target.value + '단계 불편함';
+    });
+  </script>
+  
